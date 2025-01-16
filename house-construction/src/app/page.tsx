@@ -1,54 +1,106 @@
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
+
+  const [whoPaid, setWhoPaid] = useState('');
+  const [paidDate, setPaidDate] = useState('');
+  const [paidType, setPaidType] = useState('Fijo');
+  const [category, setCategory] = useState('Casa');
+  const [description, setDescription] = useState('');
+  const [value, setValue] = useState('');
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    const payload = {
+      whoPaid,
+      paidDate,
+      paidType,
+      category,
+      description,
+      value,
+    };
+    console.log('Payload:', payload);
+    // You can now send the payload in an HTTP request
+    // Example: axios.post('/api/endpoint', payload);
+  };
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <h1>qqqqq</h1>
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+        <form onSubmit={handleSubmit}>
+          <h1>FORM</h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="who-paid" className="block text-sm/6 font-medium text-white">Quien Pagó?</label>
+            <div className="mt-2 grid grid-cols-1">
+              <select id="who-paid" name="who-paid" onChange={(e) => setWhoPaid(e.target.value)} autoComplete="who-paid" className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                <option>Juli</option>
+                <option>Sebas</option>
+              </select>
+              <svg className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label htmlFor="paid-date" className="block text-sm/6 font-medium text-white">Fecha de pago:</label>
+            <input onChange={(e) => setPaidDate(e.target.value)} type="date" id="paid-date" name="paid-date" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></input>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label htmlFor="paid-type" className="block text-sm/6 font-medium text-white">Tipo</label>
+            <div className="mt-2 grid grid-cols-1">
+              <select onChange={(e) => setPaidType(e.target.value)} id="paid-type" name="paid-type" autoComplete="paid-type" className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                <option>Fijo</option>
+                <option>Variable</option>
+              </select>
+              <svg className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label htmlFor="category" className="block text-sm/6 font-medium text-white">Tipo</label>
+            <div className="mt-2 grid grid-cols-1">
+              <select onChange={(e) => setCategory(e.target.value)} id="category" name="category" autoComplete="category" className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-black  outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                <option>Casa</option>
+                <option>Carro</option>
+                <option>Nenes</option>
+                <option>Hobbie</option>
+                <option>Ifood</option>
+                <option>Salidas</option>
+                <option>Viajes</option>
+                <option>Salud</option>
+                <option>Casa Nueva</option>
+              </select>
+              <svg className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label htmlFor="description" className="block text-sm/6 font-medium text-white">Descripción</label>
+            <div className="mt-2">
+              <input onChange={(e) => setDescription(e.target.value)} type="text" name="description" id="description" autoComplete="description" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label htmlFor="value" className="block text-sm/6 font-medium text-white">Valor</label>
+            <div className="mt-2">
+              <input onChange={(e) => setValue(e.target.value)} type="number" name="value" id="value" autoComplete="value" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+            </div>
+          </div>
+
+          <div className="mt-6 flex items-center justify-end gap-x-6">
+            <button type="button" className="text-sm/6 font-semibold text-white">Cancel</button>
+            <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+          </div>
+        </form>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a

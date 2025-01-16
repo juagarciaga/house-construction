@@ -2,7 +2,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dynamoDb from '../../../../aws-config';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default function ReadDB(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
     return res.status(405).end();
   }

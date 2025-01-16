@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import dynamoDb from '../../../../aws-config';
 
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function CreateTable(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).end();
   }

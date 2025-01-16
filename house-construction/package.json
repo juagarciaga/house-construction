@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/aws-lambda": "^8.10.146",
     "@types/aws-sdk": "^0.0.42",
+    "aws": "^0.0.3-2",
     "aws-sdk": "^2.1692.0",
     "next": "^15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
