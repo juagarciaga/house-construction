@@ -51,7 +51,7 @@ export const handler = async (event, context) => {
         body = await dynamo.send(
           new ScanCommand({ TableName: tableName })
         );
-        body = body.Items;
+        body = body;
         break;
       case "PUT /items":
         await dynamo.send(
@@ -60,11 +60,14 @@ export const handler = async (event, context) => {
             Item: {
               id: requestJSON.id,
               whoPaid: requestJSON.whoPaid,
-              expenseType: requestJSON.expenseType,
+              expenseDate: requestJSON.paidDate,
+              expenseDate: requestJSON.paidDate,
+              expenseType: requestJSON.paidType,
+              expenseCategory: requestJSON.category,
               description: requestJSON.description,
-              expenseCategory: requestJSON.expenseCategory,
-              expenseValue: requestJSON.expenseValue,
-              expenseDate: requestJSON.expenseDate,
+              expenseValue: requestJSON.value,
+              month: requestJSON.month,
+              year: requestJSON.year,
             },
           })
         );
