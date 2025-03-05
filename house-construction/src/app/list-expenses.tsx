@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 export default function ListExpenses() {
   const [expenses, setExpenses] = useState<any[]>();
+  const [loading, setLoading] = useState<boolean>(true);
   const [expensesByYear, setExpensesByYear] = useState<any[]>();
   const [expensesByMonth, setExpensesByMonth] = useState<any>();
   const [totalYear, setTotalYear] = useState<any>(0);
@@ -19,6 +20,7 @@ export default function ListExpenses() {
       let byYearItems = _.uniq(response.data.items.map((item: Record<string, any>) => item.year));
       byYearItems = _.orderBy(byYearItems);
       setExpensesByYear(byYearItems);
+      setLoading(false);
     } catch (error) {
       console.error('Error getting items:', error);
     }
@@ -64,14 +66,19 @@ export default function ListExpenses() {
   }, []);
 
   return (
+
     <>
+      {loading && <p>Loading...</p>}
+
       {expensesByYear && (
-        <div className="flex gap-4">
+        <div className="flex gap-4 w-100">
           {expensesByYear.map((year) => (
-            <button key={year} onClick={() => loadItemsByMonth(year)}>{year}</button>
+            <button className="rounded-md " type="button" key={year} onClick={() => loadItemsByMonth(year)}>{year}</button>
           ))}
         </div>
       )}
+
+      <h2 className="font-bold">Total Year: {totalYear}</h2>
 
       {expensesByMonth && (
         <>
@@ -106,10 +113,6 @@ export default function ListExpenses() {
           ))}
         </>
       )}
-
-      <h2 className="font-bold">Total Year: {totalYear}</h2>
-
-      {/* <button onClick={() => listItem()} className="btn mt4">Show items</button> */}
     </>
   );
 }
