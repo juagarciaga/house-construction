@@ -4,22 +4,31 @@ import _ from "lodash";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
+interface Expense {
+  id: string;
+  whoPaid: string;
+  expenseCategory: string;
+  expenseValue: number;
+  expenseDate: string;
+  description: string;
+  month: number;
+  year: number;
+}
 
 export default function ListExpenses() {
-  const [expenses, setExpenses] = useState<any[]>();
+  const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [expensesByYear, setExpensesByYear] = useState<any[]>();
-  const [expensesByMonth, setExpensesByMonth] = useState<any>();
-  const [totalYear, setTotalYear] = useState<any>(0);
+  const [expensesByYear, setExpensesByYear] = useState<number[]>([]);
+  const [expensesByMonth, setExpensesByMonth] = useState<Record<string, Expense[]>>({});
+  const [totalYear, setTotalYear] = useState<string>("0");
 
   const listItem = async () => {
     try {
       const response = await axios.get('https://ucn9prowa5.execute-api.us-east-1.amazonaws.com/dev/items');
-      console.log('Response:', response.data);
       setExpenses(response.data.items);
 
-      let byYearItems = _.uniq(response.data.items.map((item: Record<string, any>) => item.year));
-      byYearItems = _.orderBy(byYearItems);
+      let byYearItems: number[] = _.uniq(response.data.items.map((item: Expense) => item.year));
+      byYearItems = _.orderBy(byYearItems).map((year) => Number(year));
       setExpensesByYear(byYearItems);
       setLoading(false);
     } catch (error) {
@@ -27,26 +36,26 @@ export default function ListExpenses() {
     }
   };
 
-  const loadItemsByMonth = (year: string) => {
-    const byYear = expenses?.filter((item) => item.year === year) || [];
+  const loadItemsByMonth = (year: number): void => {
+    const byYear = expenses.filter((item) => item.year === year);
     const tYear = calculateTotalExpense(byYear);
     setTotalYear(tYear);
     const byMonth = _.groupBy(byYear, 'month');
     setExpensesByMonth(byMonth);
   }
 
-  const getMonthName = (monthNumber: number) => {
+  const getMonthName = (monthNumber: number): string => {
     const date = new Date();
     date.setMonth(monthNumber - 1);
     return date.toLocaleString('default', { month: 'long' });
   };
 
-  const calculateTotalExpense = (expenses: Record<string, any>[]) => {
+  const calculateTotalExpense = (expenses: Expense[]): string => {
     const sumTotal = expenses.reduce((total, item) => total + Number(item.expenseValue), 0);
     return formatCurrency(sumTotal);
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     return date.toLocaleDateString('default', {
       year: 'numeric',
@@ -55,7 +64,7 @@ export default function ListExpenses() {
     });
   };
 
-  const formatCurrency = (value: number) => {
+  const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD'
@@ -76,13 +85,12 @@ export default function ListExpenses() {
   }, []);
 
   return (
-
     <>
       {loading && <p>Loading...</p>}
 
       {expensesByYear && (
         <div className="flex gap-4 w-100">
-          {expensesByYear.map((year) => (
+          {expensesByYear.map((year: number) => (
             <button className="rounded-md " type="button" key={year} onClick={() => loadItemsByMonth(year)}>{year}</button>
           ))}
         </div>
@@ -108,11 +116,11 @@ export default function ListExpenses() {
                   </tr>
                 </thead>
                 <tbody>
-                  {expensesByMonth[month].map((item: Record<string, any>) => (
+                  {expensesByMonth[month].map((item: Expense) => (
                     <tr key={item.id}>
                       <td className="text-center px-1">{item.whoPaid}</td>
                       <td className="text-center px-1">{item.expenseCategory}</td>
-                      <td className="text-center px-1">{formatCurrency(Number(item.expenseValue))}</td>
+                      <td className="text-center px-1">{formatCurrency(item.expenseValue)}</td>
                       <td className="text-center px-1">{formatDate(item.expenseDate)}</td>
                       <td className="text-center px-1">{item.description}</td>
                       <td className="text-center px-1 flex align-center justify-center cursor-pointer" onClick={() => deleteExpense(item.id)}>

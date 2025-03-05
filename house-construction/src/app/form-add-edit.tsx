@@ -39,10 +39,9 @@ export default function FormAddEdit({ toggleForm }: { toggleForm: () => void }) 
     await updateItem(payload);
   };
 
-  const updateItem = async (payload: Record<string, any>) => {
+  const updateItem = async (payload: Record<string, unknown>): Promise<void> => {
     try {
-      const response = await axios.put('https://ucn9prowa5.execute-api.us-east-1.amazonaws.com/dev/items', payload);
-      console.log('Response:', response.data);
+      await axios.put('https://ucn9prowa5.execute-api.us-east-1.amazonaws.com/dev/items', payload);
       toggleForm();
     } catch (error) {
       console.error('Error updating item:', error);

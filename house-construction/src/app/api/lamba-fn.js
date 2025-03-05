@@ -21,7 +21,7 @@ export const handler = async (event, context) => {
   };
 
   let requestJSON;
-  console.log({ event });
+  console.log({ event, context });
   if (event.body) {
     requestJSON = JSON.parse(event.body);
   }

@@ -1,8 +1,5 @@
 'use client'
 import Image from "next/image";
-import { useState } from "react";
-import FormAddEdit from "./form-add-edit";
-import ListExpenses from "./list-expenses";
 import Link from "next/link";
 
 
