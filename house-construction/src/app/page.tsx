@@ -4,27 +4,15 @@ import Image from "next/image";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import FormAddEdit from "./form-add-edit";
+import ListExpenses from "./list-expenses";
 
 
 export default function Home() {
-  const [items, setItems] = useState();
-
-  const getItems = async () => {
-    try {
-      const response = await axios.get('https://ucn9prowa5.execute-api.us-east-1.amazonaws.com/items', {});
-      setItems(response.data);
-      console.log('Response:', response.data);
-    } catch (error) {
-      console.error('Error updating item:', error);
-    }
-  };
-
-
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <h1>OI</h1>
-      <button onClick={() => getItems()}>Show items</button>
+      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+      <ListExpenses />
       <FormAddEdit />
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
@@ -73,6 +61,7 @@ export default function Home() {
           Go to nextjs.org →
         </a>
       </footer>
+      </main>
     </div>
   );
 }

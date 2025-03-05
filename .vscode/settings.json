@@ -1,0 +1,24 @@
+{
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "eslint.validate": [
+      "javascript",
+      "typescript"
+    ],
+    "[typescript]": {
+      "editor.formatOnSave": true,
+      "editor.formatOnPaste": false,
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.detectIndentation": false,
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "typescript.preferences.importModuleSpecifier": "project-relative"
+    },
+    "eslint.options": {
+      "resolvePluginsRelativeTo": "./node_modules/@abi/eslint-config-aurora"
+    }
+  }

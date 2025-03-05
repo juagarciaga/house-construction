@@ -14,12 +14,14 @@
     "aws": "^0.0.3-2",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.7.9",
+    "lodash": "^4.17.21",
     "next": "^15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.16",
     "@types/node": "^20.17.9",
     "@types/react": "^18",
     "@types/react-dom": "^18",

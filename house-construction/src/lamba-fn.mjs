@@ -20,8 +20,10 @@ export const handler = async (event, context) => {
     "Content-Type": "application/json",
   };
 
-  let requestJSON = JSON.parse(event.body);
-
+  let requestJSON;
+  if (event.body) {
+    requestJSON = JSON.parse(event.body);
+  }
 
   try {
     switch (event.routeKey) {
@@ -37,7 +39,7 @@ export const handler = async (event, context) => {
         body = `Deleted item ${event.pathParameters.id}`;
         break;
       case "GET /items/{id}":
-        body = await dynamo.send(
+        const getResult = await dynamo.send(
           new GetCommand({
             TableName: tableName,
             Key: {
@@ -45,13 +47,21 @@ export const handler = async (event, context) => {
             },
           })
         );
-        body = body.Item;
+        body = getResult.Item;
         break;
       case "GET /items":
-        body = await dynamo.send(
-          new ScanCommand({ TableName: tableName })
-        );
-        body = body;
+        const limit = event.queryStringParameters?.limit ? parseInt(event.queryStringParameters.limit) : 10;
+        const lastEvaluatedKey = event.queryStringParameters?.lastEvaluatedKey ? JSON.parse(decodeURIComponent(event.queryStringParameters.lastEvaluatedKey)) : undefined;
+        const scanParams = {
+          TableName: tableName,
+          Limit: limit,
+          ExclusiveStartKey: lastEvaluatedKey,
+        };
+        const scanResult = await dynamo.send(new ScanCommand(scanParams));
+        body = {
+          items: scanResult.Items ? scanResult.Items : [],
+          lastEvaluatedKey: scanResult.LastEvaluatedKey ? encodeURIComponent(JSON.stringify(scanResult.LastEvaluatedKey)) : null,
+        };
         break;
       case "PUT /items":
         await dynamo.send(
@@ -60,7 +70,6 @@ export const handler = async (event, context) => {
             Item: {
               id: requestJSON.id,
               whoPaid: requestJSON.whoPaid,
-              expenseDate: requestJSON.paidDate,
               expenseDate: requestJSON.paidDate,
               expenseType: requestJSON.paidType,
               expenseCategory: requestJSON.category,
