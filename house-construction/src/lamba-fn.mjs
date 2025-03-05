@@ -52,16 +52,25 @@ export const handler = async (event, context) => {
       case "GET /items":
         const limit = event.queryStringParameters?.limit ? parseInt(event.queryStringParameters.limit) : 10;
         const lastEvaluatedKey = event.queryStringParameters?.lastEvaluatedKey ? JSON.parse(decodeURIComponent(event.queryStringParameters.lastEvaluatedKey)) : undefined;
+
         const scanParams = {
           TableName: tableName,
           Limit: limit,
           ExclusiveStartKey: lastEvaluatedKey,
         };
+
         const scanResult = await dynamo.send(new ScanCommand(scanParams));
+        console.log({ scanParams, scanResult, LastEvaluatedKey: scanResult.LastEvaluatedKey });
         body = {
           items: scanResult.Items ? scanResult.Items : [],
-          lastEvaluatedKey: scanResult.LastEvaluatedKey ? encodeURIComponent(JSON.stringify(scanResult.LastEvaluatedKey)) : null,
+          lastEvaluatedKey: scanResult.LastEvaluatedKey ? scanResult.LastEvaluatedKey.id : null,
+          Count:
+            scanResult.Count === undefined
+              ? scanResult.Items.length
+              : scanResult.Count,
         };
+        console.log({ body });
+
         break;
       case "PUT /items":
         await dynamo.send(

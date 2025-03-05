@@ -2,6 +2,7 @@
 import axios from "axios";
 import _ from "lodash";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 
 export default function ListExpenses() {
@@ -61,6 +62,15 @@ export default function ListExpenses() {
     }).format(value);
   };
 
+  const deleteExpense = async (id: string) => {
+    try {
+      await axios.delete(`https://ucn9prowa5.execute-api.us-east-1.amazonaws.com/dev/items/${id}`);
+      listItem();
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
+
   useEffect(() => {
     listItem();
   }, []);
@@ -86,24 +96,34 @@ export default function ListExpenses() {
             <div className="mb-4" key={month}>
               <h2 className="font-bold text-lg">{getMonthName(Number(month))}</h2>
               <hr />
-              <table className="table-auto">
+              <table className="table-auto border-collapse w-full">
                 <thead>
                   <tr>
-                    <th className="text-center px-2">Who Paid</th>
-                    <th className="text-center px-2">Category</th>
-                    <th className="text-center px-2">Value</th>
-                    <th className="text-center px-2">Date</th>
-                    <th className="text-center px-2">Description</th>
+                    <th className="text-center px-1">Who Paid</th>
+                    <th className="text-center px-1">Category</th>
+                    <th className="text-center px-1">Value</th>
+                    <th className="text-center px-1">Date</th>
+                    <th className="text-center px-1">Description</th>
+                    <th className="text-center px-1">Delete</th>
                   </tr>
                 </thead>
                 <tbody>
                   {expensesByMonth[month].map((item: Record<string, any>) => (
                     <tr key={item.id}>
-                      <td className="text-center px-2">{item.whoPaid}</td>
-                      <td className="text-center px-2">{item.expenseCategory}</td>
-                      <td className="text-center px-2">{formatCurrency(Number(item.expenseValue))}</td>
-                      <td className="text-center px-2">{formatDate(item.expenseDate)}</td>
-                      <td className="text-center px-2">{item.description}</td>
+                      <td className="text-center px-1">{item.whoPaid}</td>
+                      <td className="text-center px-1">{item.expenseCategory}</td>
+                      <td className="text-center px-1">{formatCurrency(Number(item.expenseValue))}</td>
+                      <td className="text-center px-1">{formatDate(item.expenseDate)}</td>
+                      <td className="text-center px-1">{item.description}</td>
+                      <td className="text-center px-1 flex align-center justify-center cursor-pointer" onClick={() => deleteExpense(item.id)}>
+                        <Image
+                          aria-hidden
+                          src="/delete.svg"
+                          alt="delete icon"
+                          width={20}
+                          height={20}
+                        />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
