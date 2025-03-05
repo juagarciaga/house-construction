@@ -3,40 +3,21 @@ import Image from "next/image";
 import { useState } from "react";
 import FormAddEdit from "./form-add-edit";
 import ListExpenses from "./list-expenses";
+import Link from "next/link";
 
 
 export default function Home() {
-
-  const [showForm, setShowForm] = useState(false);
-
-  const toggleFormVisibility = () => {
-    setShowForm(!showForm);
-  };
-
-  const styleBtn: React.CSSProperties = {
-    "position": "absolute",
-    "right": "5%",
-    "top": "0",
-    "background": "gray",
-    "borderRadius": "50%",
-    "width": "4rem",
-    "height": "4rem",
-    "fontSize": "3rem",
-    "textAlign": "center",
-    "display": "flex",
-    "alignItems": "center",
-    "justifyContent": "center",
-    "padding": "0",
-  }
-
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <ListExpenses />
-        <button onClick={toggleFormVisibility} className="btn mt-4" style={styleBtn}>
-          {showForm ? '-' : '+'}
-        </button>
-        {showForm && <FormAddEdit toggleForm={toggleFormVisibility} />}
+        <Link href="/family" className="btn mt-4">
+          Family Expenses
+        </Link>
+
+        <Link href="/construction">
+          Construction
+        </Link>
+
         <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
           <a
             className="flex items-center gap-2 hover:underline hover:underline-offset-4"
