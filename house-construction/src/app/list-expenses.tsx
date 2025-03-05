@@ -8,20 +8,26 @@ export default function ListExpenses() {
   const [expenses, setExpenses] = useState<any[]>();
   const [expensesByYear, setExpensesByYear] = useState<any[]>();
   const [expensesByMonth, setExpensesByMonth] = useState<any>();
+  const [totalYear, setTotalYear] = useState<any>(0);
 
   const listItem = async () => {
     try {
       const response = await axios.get('https://ucn9prowa5.execute-api.us-east-1.amazonaws.com/dev/items');
       console.log('Response:', response.data);
       setExpenses(response.data.items);
-      setExpensesByYear(_.uniq(response.data.items.map((item: Record<string, any>) => item.year)));
+
+      let byYearItems = _.uniq(response.data.items.map((item: Record<string, any>) => item.year));
+      byYearItems = _.orderBy(byYearItems);
+      setExpensesByYear(byYearItems);
     } catch (error) {
       console.error('Error getting items:', error);
     }
   };
 
   const loadItemsByMonth = (year: string) => {
-    const byYear = expenses?.filter((item) => item.year === year);
+    const byYear = expenses?.filter((item) => item.year === year) || [];
+    const tYear = calculateTotalExpense(byYear);
+    setTotalYear(tYear);
     const byMonth = _.groupBy(byYear, 'month');
     setExpensesByMonth(byMonth);
   }
@@ -77,20 +83,20 @@ export default function ListExpenses() {
                 <thead>
                   <tr>
                     <th className="text-center px-2">Who Paid</th>
-                    <th className="text-center px-2">Description</th>
                     <th className="text-center px-2">Category</th>
-                    <th className="text-center px-2">Date</th>
                     <th className="text-center px-2">Value</th>
+                    <th className="text-center px-2">Date</th>
+                    <th className="text-center px-2">Description</th>
                   </tr>
                 </thead>
                 <tbody>
                   {expensesByMonth[month].map((item: Record<string, any>) => (
                     <tr key={item.id}>
                       <td className="text-center px-2">{item.whoPaid}</td>
-                      <td className="text-center px-2">{item.description}</td>
                       <td className="text-center px-2">{item.expenseCategory}</td>
-                      <td className="text-center px-2">{formatDate(item.expenseDate)}</td>
                       <td className="text-center px-2">{formatCurrency(Number(item.expenseValue))}</td>
+                      <td className="text-center px-2">{formatDate(item.expenseDate)}</td>
+                      <td className="text-center px-2">{item.description}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -101,7 +107,9 @@ export default function ListExpenses() {
         </>
       )}
 
-      <button onClick={() => listItem()} className="btn mt4">Show items</button>
+      <h2 className="font-bold">Total Year: {totalYear}</h2>
+
+      {/* <button onClick={() => listItem()} className="btn mt4">Show items</button> */}
     </>
   );
 }
