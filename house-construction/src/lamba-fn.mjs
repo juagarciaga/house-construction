@@ -21,6 +21,7 @@ export const handler = async (event, context) => {
   };
 
   let requestJSON;
+  console.log({ event });
   if (event.body) {
     requestJSON = JSON.parse(event.body);
   }
@@ -63,11 +64,7 @@ export const handler = async (event, context) => {
         console.log({ scanParams, scanResult, LastEvaluatedKey: scanResult.LastEvaluatedKey });
         body = {
           items: scanResult.Items ? scanResult.Items : [],
-          lastEvaluatedKey: scanResult.LastEvaluatedKey ? scanResult.LastEvaluatedKey.id : null,
-          Count:
-            scanResult.Count === undefined
-              ? scanResult.Items.length
-              : scanResult.Count,
+          lastEvaluatedKey: scanResult.LastEvaluatedKey ? encodeURIComponent(JSON.stringify(scanResult.LastEvaluatedKey)) : null,
         };
         console.log({ body });
 
