@@ -1,7 +1,7 @@
 'use client'
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function ListExpenses() {
@@ -26,6 +26,33 @@ export default function ListExpenses() {
     setExpensesByMonth(byMonth);
   }
 
+  const getMonthName = (monthNumber: number) => {
+    const date = new Date();
+    date.setMonth(monthNumber - 1);
+    return date.toLocaleString('default', { month: 'long' });
+  };
+
+  const calculateTotalExpense = (expenses: Record<string, any>[]) => {
+    const sumTotal = expenses.reduce((total, item) => total + Number(item.expenseValue), 0);
+    return formatCurrency(sumTotal);
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('default', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(value);
+  };
+
   useEffect(() => {
     listItem();
   }, []);
@@ -41,43 +68,37 @@ export default function ListExpenses() {
       )}
 
       {expensesByMonth && (
-        <div className="">
+        <>
           {Object.keys(expensesByMonth).map((month) => (
-            <React.Fragment key={month}>
-              <h2 className="red flex">{month}</h2>
+            <div className="mb-4" key={month}>
+              <h2 className="font-bold text-lg">{getMonthName(Number(month))}</h2>
               <hr />
-              <br />
               <table className="table-auto">
                 <thead>
                   <tr>
-                    <th>Who Paid</th>
-                    <th>Description</th>
-                    <th>Type</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th>Value</th>
-                    <th>month</th>
-                    <th>year</th>
+                    <th className="text-center px-2">Who Paid</th>
+                    <th className="text-center px-2">Description</th>
+                    <th className="text-center px-2">Category</th>
+                    <th className="text-center px-2">Date</th>
+                    <th className="text-center px-2">Value</th>
                   </tr>
                 </thead>
-              <tbody>
-              {expensesByMonth[month].map((item: Record<string, any>) => (
-                <tr key={item.id}>
-                <td>{item.whoPaid}</td>
-                <td>{item.description}</td>
-                <td>{item.expensesType}</td>
-                <td>{item.expenseCategory}</td>
-                <td>{item.expenseDate}</td>
-                <td>{item.expenseValue}</td>
-                <td>{item.month}</td>
-                <td>{item.year}</td>
-              </tr>
-              ))}
-              </tbody>
+                <tbody>
+                  {expensesByMonth[month].map((item: Record<string, any>) => (
+                    <tr key={item.id}>
+                      <td className="text-center px-2">{item.whoPaid}</td>
+                      <td className="text-center px-2">{item.description}</td>
+                      <td className="text-center px-2">{item.expenseCategory}</td>
+                      <td className="text-center px-2">{formatDate(item.expenseDate)}</td>
+                      <td className="text-center px-2">{formatCurrency(Number(item.expenseValue))}</td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
-            </React.Fragment>
+              <h2 className="font-bold">Total Month: {calculateTotalExpense(expensesByMonth[month])}</h2>
+            </div>
           ))}
-        </div>
+        </>
       )}
 
       <button onClick={() => listItem()} className="btn mt4">Show items</button>
