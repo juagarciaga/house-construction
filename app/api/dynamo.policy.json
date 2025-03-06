@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:sts::736301519450:assumed-role/romaneios-role-avcqq91z/romaneios",
+          "arn:aws:sts::736301519450:assumed-role/http-crud-tutorial-function-role-ff5viqvn/http-crud-tutorial-function",
+          "arn:aws:iam::736301519450:user/ADMIN"
+        ]
+      },
+      "Action": [
+        "dynamodb:Scan",
+        "dynamodb:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

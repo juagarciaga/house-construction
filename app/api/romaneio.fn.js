@@ -1,10 +1,10 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
-  DynamoDBDocumentClient,
-  ScanCommand,
-  PutCommand,
-  GetCommand,
   DeleteCommand,
+  DynamoDBDocumentClient,
+  GetCommand,
+  PutCommand,
+  ScanCommand,
 } from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient({});
@@ -28,7 +28,7 @@ export const handler = async (event, context) => {
 
   try {
     switch (event.routeKey) {
-      case "DELETE /items/{id}":
+      case "DELETE /romaneios/{id}":
         await dynamo.send(
           new DeleteCommand({
             TableName: tableName,
@@ -39,7 +39,7 @@ export const handler = async (event, context) => {
         );
         body = `Deleted item ${event.pathParameters.id}`;
         break;
-      case "GET /items/{id}":
+      case "GET /romaneios/{id}":
         const getResult = await dynamo.send(
           new GetCommand({
             TableName: tableName,
@@ -50,7 +50,7 @@ export const handler = async (event, context) => {
         );
         body = getResult.Item;
         break;
-      case "GET /items":
+      case "GET /romaneios":
         const limit = event.queryStringParameters?.limit ? parseInt(event.queryStringParameters.limit) : 10;
         const lastEvaluatedKey = event.queryStringParameters?.lastEvaluatedKey ? JSON.parse(decodeURIComponent(event.queryStringParameters.lastEvaluatedKey)) : undefined;
 
@@ -69,27 +69,34 @@ export const handler = async (event, context) => {
         console.log({ body });
 
         break;
-      case "PUT /items":
-        await dynamo.send(
-          new PutCommand({
-            TableName: tableName,
-            Item: {
-              id: requestJSON.id,
-              week: requestJSON.week,
-              provider: requestJSON.provider,
-              ccoMaterial: requestJSON.ccoMaterial,
-              clasification: requestJSON.clasification,
-              note: requestJSON.note,
-              createdDate: requestJSON.createdDate,
-              expiredDate: requestJSON.expiredDate,
-              value: requestJSON.value,
-              paymentType: requestJSON.paymentType,
-              obs: requestJSON.obs,
-            },
-          })
-        );
-        body = `Put item ${requestJSON.id}`;
-        break;
+      case "PUT /romaneios":
+        try {          
+          console.log({ requestJSON });
+          await dynamo.send(
+            new PutCommand({
+              TableName: tableName,
+              Item: {
+                id: requestJSON.id,
+                week: requestJSON.week,
+                provider: requestJSON.provider,
+                ccoMaterial: requestJSON.ccoMaterial,
+                clasification: requestJSON.clasification,
+                note: requestJSON.note,
+                createdDate: requestJSON.createdDate,
+                expiredDate: requestJSON.expiredDate,
+                value: requestJSON.value,
+                paymentType: requestJSON.paymentType,
+                obs: requestJSON.obs,
+                year: requestJSON.year,
+                month: requestJSON.month,
+              },
+            })
+          );
+          body = `Put item ${requestJSON.id}`;
+          break;
+        } catch (error) {
+          console.error(error); 
+        }
       default:
         throw new Error(`Unsupported route: "${event.routeKey}"`);
     }
