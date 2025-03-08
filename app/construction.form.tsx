@@ -69,50 +69,48 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
 
           <div className="sm:col-span-3">
             <label htmlFor="week" className="block text-sm/6 font-medium text-white">No. Romaneio</label>
-            <input onChange={(e) => setWeek(Number(e.target.value))} type="number" id="week" name="week" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>            
+            <input onChange={(e) => setWeek(Number(e.target.value))} type="number" id="week" name="week" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="sm:col-span-3">
             <label htmlFor="provider" className="block text-sm/6 font-medium text-white">Fornecedor</label>
-            <input onChange={(e) => setProvider(e.target.value)} type="text" id="provider" name="provider" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>            
+            <input onChange={(e) => setProvider(e.target.value)} type="text" id="provider" name="provider" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="sm:col-span-3">
             <label htmlFor="material" className="block text-sm/6 font-medium text-white">Material</label>
-            <input onChange={(e) => setccoMaterial(e.target.value)} type="text" id="material" name="material" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>            
+            <input onChange={(e) => setccoMaterial(e.target.value)} type="text" id="material" name="material" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="sm:col-span-3">
             <label htmlFor="clasification" className="block text-sm/6 font-medium text-white">Clasificação de Material ou Serviço</label>
-            <input onChange={(e) => setClasification(e.target.value)} type="text" id="clasification" name="clasification" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>            
+            <input onChange={(e) => setClasification(e.target.value)} type="text" id="clasification" name="clasification" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="sm:col-span-3">
             <label htmlFor="note" className="block text-sm/6 font-medium text-white">Nota Fiscal</label>
-            <input onChange={(e) => setNote(e.target.value)} type="text" id="note" name="note" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>            
+            <input onChange={(e) => setNote(e.target.value)} type="text" id="note" name="note" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="sm:col-span-3">
             <label htmlFor="creationDt" className="block text-sm/6 font-medium text-white">Emissão</label>
-            <input onChange={(e) => setCreatedDate(new Date(e.target.value))} type="date" id="creationDt" name="creationDt" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>            
+            <input onChange={(e) => setCreatedDate(new Date(e.target.value))} type="date" id="creationDt" name="creationDt" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
 
           <div className="sm:col-span-3">
             <label htmlFor="expiredDt" className="block text-sm/6 font-medium text-white">Vencimento</label>
-            <input onChange={(e) => setExpiredDate(new Date(e.target.value))} type="date" id="expiredDt" name="expiredDt" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+            <input onChange={(e) => setExpiredDate(new Date(e.target.value))} type="date" id="expiredDt" name="expiredDt" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="sm:col-span-3">
             <label htmlFor="value" className="block text-sm/6 font-medium text-white">Valor</label>
-            <div className="mt-2">
-              <input onChange={(e) => setValue(e.target.value)} type="text" name="value" id="value" autoComplete="value" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-            </div>
+            <input onChange={(e) => setValue(e.target.value)} type="text" name="value" id="value" autoComplete="value" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="sm:col-span-3">
             <label htmlFor="paid-type" className="block text-sm/6 font-medium text-white">Tipo</label>
-            <div className="mt-2 grid grid-cols-1">
+            <div className="grid grid-cols-1">
               <select onChange={(e) => setpaymentType(e.target.value)} id="paid-type" name="paid-type" autoComplete="paid-type" className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                 <option>Boleto</option>
                 <option>Dinheiro</option>
@@ -126,12 +124,10 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
 
           <div className="sm:col-span-3">
             <label htmlFor="description" className="block text-sm/6 font-medium text-white">Descripción</label>
-            <div className="mt-2">
-              <input onChange={(e) => setObs(e.target.value)} type="text" name="description" id="description" autoComplete="description" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-            </div>
+            <input onChange={(e) => setObs(e.target.value)} type="text" name="description" id="description" autoComplete="description" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
-          
+
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" className="text-sm/6 font-semibold text-white" onClick={() => toggleForm()}>Cancel</button>

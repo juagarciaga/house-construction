@@ -1,8 +1,8 @@
 'use client'
 import axios from "axios";
 import _ from "lodash";
-import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface Expense {
   id: string;
@@ -71,10 +71,11 @@ export default function ListExpenses() {
     }).format(value);
   };
 
-  const deleteExpense = async (id: string) => {
+  const deleteExpense = async (id: string, month: string) => {
     try {
       await axios.delete(`https://ucn9prowa5.execute-api.us-east-1.amazonaws.com/dev/items/${id}`);
-      listItem();
+      expensesByMonth[month] = expensesByMonth[month].filter((item) => item.id !== id);
+      setExpensesByMonth({ ...expensesByMonth });
     } catch (error) {
       console.error('Error deleting item:', error);
     }
@@ -123,7 +124,7 @@ export default function ListExpenses() {
                       <td className="text-center px-1">{formatCurrency(item.expenseValue)}</td>
                       <td className="text-center px-1">{formatDate(item.expenseDate)}</td>
                       <td className="text-center px-1">{item.description}</td>
-                      <td className="text-center px-1 flex align-center justify-center cursor-pointer" onClick={() => deleteExpense(item.id)}>
+                      <td className="text-center px-1 flex align-center justify-center cursor-pointer" onClick={() => deleteExpense(item.id, month)}>
                         <Image
                           aria-hidden
                           src="/delete.svg"
