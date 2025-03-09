@@ -87,7 +87,15 @@ export default function ListExpenses() {
 
   return (
     <>
-      {loading && <p>Loading...</p>}
+      {loading ? <p>Loading...</p> : <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={listItem}>
+        <Image
+          aria-hidden
+          src="/refresh.svg"
+          alt="refresh icon"
+          width={20}
+          height={20}
+        />
+      </button>}
 
       {expensesByYear && (
         <div className="flex gap-4 w-100">
@@ -98,6 +106,8 @@ export default function ListExpenses() {
       )}
 
       <h2 className="font-bold">Total Year: {totalYear}</h2>
+
+
 
       {expensesByMonth && (
         <>

@@ -70,7 +70,7 @@ export const handler = async (event, context) => {
 
         break;
       case "PUT /romaneios":
-        try {          
+        try {
           console.log({ requestJSON });
           await dynamo.send(
             new PutCommand({
@@ -89,13 +89,14 @@ export const handler = async (event, context) => {
                 obs: requestJSON.obs,
                 year: requestJSON.year,
                 month: requestJSON.month,
+                isInRomaneio: requestJSON.isInRomaneio,
               },
             })
           );
           body = `Put item ${requestJSON.id}`;
           break;
         } catch (error) {
-          console.error(error); 
+          console.error(error);
         }
       default:
         throw new Error(`Unsupported route: "${event.routeKey}"`);
