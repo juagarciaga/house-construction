@@ -3,6 +3,7 @@ import axios from "axios";
 import _ from "lodash";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { formatCurrency, formatDate } from "../commons";
 
 interface Expense {
   id: string;
@@ -55,22 +56,6 @@ export default function ListExpenses() {
     return formatCurrency(sumTotal);
   };
 
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('default', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
-
-  const formatCurrency = (value: number): string => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(value);
-  };
-
   const deleteExpense = async (id: string, month: string) => {
     try {
       await axios.delete(`https://ucn9prowa5.execute-api.us-east-1.amazonaws.com/dev/items/${id}`);
@@ -106,8 +91,6 @@ export default function ListExpenses() {
       )}
 
       <h2 className="font-bold">Total Year: {totalYear}</h2>
-
-
 
       {expensesByMonth && (
         <>

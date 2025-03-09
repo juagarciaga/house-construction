@@ -1,11 +1,6 @@
-// export const LargeBtnAddStyle 
 export const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('default', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+    const dateOnly = dateString.split("T")[0];
+    return new Date(dateOnly).toISOString().split("T")[0];
 };
 
 export const formatCurrency = (value: number): string => {
@@ -14,6 +9,11 @@ export const formatCurrency = (value: number): string => {
         currency: 'USD'
     }).format(value);
 };
+
+// export   const calculateTotalExpense<T>(expenses: T[]): string => {
+//     const sumTotal = expenses.reduce((total, item) => total + Number(item.value), 0);
+//     return formatCurrency(sumTotal);
+//   };
 
 // export const deleteExpense = async (id: string, month: string) => {
 //     try {

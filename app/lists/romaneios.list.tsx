@@ -2,7 +2,6 @@
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { formatCurrency } from "../commons";
 
 interface RomaneioItem {
   id: string;
@@ -29,7 +28,6 @@ export default function RomaneiosList() {
   const listItem = async () => {
     try {
       const response = await axios.get('https://d3cntsq33m.execute-api.us-east-1.amazonaws.com/dev/romaneios');
-      console.log({ response });
       setRomaneios(response.data.items);
       setLoading(false);
     } catch (error) {
@@ -38,10 +36,7 @@ export default function RomaneiosList() {
     }
   };
 
-  const calculateTotalExpense = (expenses: RomaneioItem[]): string => {
-    const sumTotal = expenses.reduce((total, item) => total + Number(item.value), 0);
-    return formatCurrency(sumTotal);
-  };
+
 
 
   const deleteExpense = async (id: string) => {

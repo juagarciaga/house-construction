@@ -1,7 +1,12 @@
 import Link from "next/link";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
-const DashboardLayout = ({ children }: any) => {
+interface DashboardLayoutProps {
+    children: ReactNode;
+    title?: string; // Optional title prop
+}
+
+const DashboardLayout = ({ children, title = "Dashboard" }: DashboardLayoutProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -34,7 +39,7 @@ const DashboardLayout = ({ children }: any) => {
                         </svg>
                     </button>
                     {/* Current Page Info */}
-                    <h1 className="text-xl font-semibold">Dashboard</h1>
+                    <h1 className="text-xl font-semibold">{title}</h1>
                 </div>
                 {/* User Info */}
                 <div className="flex items-center">
@@ -48,7 +53,7 @@ const DashboardLayout = ({ children }: any) => {
                 {/* Side Navigation Menu */}
                 <aside
                     className={`bg-gray-800 text-white w-64 space-y-2 p-4 transform transition-transform duration-200 ease-in-out ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
-                        } lg:translate-x-0 lg:static fixed h-full z-40`}
+                        } lg:translate-x-0 lg:static fixed h-full z-5`}
                 >
                     <nav>
                         <ul>
