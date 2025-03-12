@@ -53,7 +53,7 @@ const DashboardLayout = ({ children, title = "Dashboard" }: DashboardLayoutProps
                 {/* Side Navigation Menu */}
                 <aside
                     className={`bg-gray-800 text-white w-64 space-y-2 p-4 transform transition-transform duration-200 ease-in-out ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
-                        } lg:translate-x-0 lg:static fixed h-full z-5`}
+                        } lg:translate-x-0 lg:static fixed h-full  min-h-screen z-5`}
                 >
                     <nav>
                         <ul>

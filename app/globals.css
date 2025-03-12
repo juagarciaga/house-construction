@@ -38,7 +38,13 @@ body {
 
 .scrollable-table::-webkit-scrollbar {
   height: 8px;
+  max-width: 94vw;
 }
+
+.scrollable-table {
+  max-width: 94vw;
+}
+
 .scrollable-table::-webkit-scrollbar-thumb {
   background: #4f46e5; /* Indigo-500 */
   border-radius: 4px;

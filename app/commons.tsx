@@ -13,8 +13,12 @@ export const formatCurrency = (value: number): string => {
     }).format(value);
 };
 
-export const calculateTotalExpenseByAgnosticType = (expenses: RomaneioItem[]): string => {
-    const sumTotal = expenses.reduce((total, item) => total + Number(item.value), 0);
+export const calculateTotalExpenseByAgnosticType = (expenses: RomaneioItem[]): number => {
+    return expenses.reduce((total, item) => total + Number(item.value), 0);
+};
+
+export const computeTotalExpenseFormated = (expenses: RomaneioItem[]): string => {
+    const sumTotal = calculateTotalExpenseByAgnosticType(expenses);
     return formatCurrency(sumTotal);
 };
 
