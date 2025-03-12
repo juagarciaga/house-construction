@@ -1,3 +1,5 @@
+import { RomaneioItem } from "./lists/romaneios.list";
+
 export const formatDate = (dateString: string): string => {
     const dateOnly = dateString.split("T")[0];
     const dt = new Date(dateOnly).toISOString().split("T")[0];
@@ -11,7 +13,7 @@ export const formatCurrency = (value: number): string => {
     }).format(value);
 };
 
-export const calculateTotalExpenseByAgnosticType = (expenses: Record<string, any>[]): string => {
+export const calculateTotalExpenseByAgnosticType = (expenses: RomaneioItem[]): string => {
     const sumTotal = expenses.reduce((total, item) => total + Number(item.value), 0);
     return formatCurrency(sumTotal);
 };

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { calculateTotalExpenseByAgnosticType, formatCurrency, formatDate } from "../commons";
 
-interface RomaneioItem {
+export interface RomaneioItem {
   id: string;
   provider: string;
   createdDate: string;
