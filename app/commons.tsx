@@ -11,7 +11,7 @@ export const formatCurrency = (value: number): string => {
     }).format(value);
 };
 
-export const calculateTotalExpenseByAgnosticType = (expenses: any[]): string => {
+export const calculateTotalExpenseByAgnosticType = (expenses: Record<string, any>[]): string => {
     const sumTotal = expenses.reduce((total, item) => total + Number(item.value), 0);
     return formatCurrency(sumTotal);
 };

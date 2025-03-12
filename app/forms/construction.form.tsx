@@ -19,7 +19,7 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
   const [value, setValue] = useState('');
   const [paymentType, setpaymentType] = useState('Boleto');
   const [obs, setObs] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const month = createdDate.getMonth() + 1;
@@ -55,6 +55,7 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
     try {
       await axios.put('https://d3cntsq33m.execute-api.us-east-1.amazonaws.com/dev/romaneios', payload);
       toggleForm();
+      console.log('Item updated:', payload);
     } catch (error) {
       console.error('Error updating item:', error);
     }
@@ -64,7 +65,6 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
     setIsChecked(!isChecked); // Toggle the checked state
   };
 
-  console.log('isChecked', isChecked);
 
 
   return (
@@ -79,17 +79,17 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
 
           <div className="mt-4 sm:col-span-3">
             <label htmlFor="week" className="block text-sm/6 font-medium text-white">No. Romaneio</label>
-            <input onChange={(e) => setWeek(Number(e.target.value))} type="number" id="week" name="week" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+            <input onChange={(e) => setWeek(Number(e.target.value))} type="number" id="week" name="week" autoComplete="week" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="mt-4 sm:col-span-3">
             <label htmlFor="provider" className="block text-sm/6 font-medium text-white">Fornecedor</label>
-            <input onChange={(e) => setProvider(e.target.value)} type="text" id="provider" name="provider" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+            <input onChange={(e) => setProvider(e.target.value)} type="text" id="provider" name="provider" autoComplete="provider" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="mt-4 sm:col-span-3">
             <label htmlFor="material" className="block text-sm/6 font-medium text-white">Material</label>
-            <input onChange={(e) => setccoMaterial(e.target.value)} type="text" id="material" name="material" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+            <input onChange={(e) => setccoMaterial(e.target.value)} type="text" id="material" name="material" autoComplete="material" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="mt-4 sm:col-span-3">
@@ -145,7 +145,7 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
                 onChange={handleCheckboxChange}
                 className="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500"
               />
-              <span className="text-gray-700">Gasto fora do Romaneio</span>
+              <span className="text-gray-700">Gasto está no Romaneio?</span>
             </label>
           </div>
 

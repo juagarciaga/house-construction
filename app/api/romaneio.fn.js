@@ -51,7 +51,7 @@ export const handler = async (event, context) => {
         body = getResult.Item;
         break;
       case "GET /romaneios":
-        const limit = event.queryStringParameters?.limit ? parseInt(event.queryStringParameters.limit) : 10;
+        const limit = event.queryStringParameters?.limit ? parseInt(event.queryStringParameters.limit) : 1000;
         const lastEvaluatedKey = event.queryStringParameters?.lastEvaluatedKey ? JSON.parse(decodeURIComponent(event.queryStringParameters.lastEvaluatedKey)) : undefined;
 
         const scanParams = {
@@ -64,6 +64,7 @@ export const handler = async (event, context) => {
         console.log({ scanParams, scanResult, LastEvaluatedKey: scanResult.LastEvaluatedKey });
         body = {
           items: scanResult.Items ? scanResult.Items : [],
+          count: scanResult.Count,
           lastEvaluatedKey: scanResult.LastEvaluatedKey ? encodeURIComponent(JSON.stringify(scanResult.LastEvaluatedKey)) : null,
         };
         console.log({ body });
