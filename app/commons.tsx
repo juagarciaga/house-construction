@@ -1,6 +1,7 @@
 export const formatDate = (dateString: string): string => {
     const dateOnly = dateString.split("T")[0];
-    return new Date(dateOnly).toISOString().split("T")[0];
+    const dt = new Date(dateOnly).toISOString().split("T")[0];
+    return dt.split("-").reverse().join("/");
 };
 
 export const formatCurrency = (value: number): string => {
@@ -10,10 +11,10 @@ export const formatCurrency = (value: number): string => {
     }).format(value);
 };
 
-// export   const calculateTotalExpense<T>(expenses: T[]): string => {
-//     const sumTotal = expenses.reduce((total, item) => total + Number(item.value), 0);
-//     return formatCurrency(sumTotal);
-//   };
+export const calculateTotalExpenseByAgnosticType = (expenses: any[]): string => {
+    const sumTotal = expenses.reduce((total, item) => total + Number(item.value), 0);
+    return formatCurrency(sumTotal);
+};
 
 // export const deleteExpense = async (id: string, month: string) => {
 //     try {

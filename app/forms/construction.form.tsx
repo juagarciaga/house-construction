@@ -20,11 +20,13 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
   const [paymentType, setpaymentType] = useState('Boleto');
   const [obs, setObs] = useState('');
   const [isChecked, setIsChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const month = createdDate.getMonth() + 1;
   const year = createdDate.getFullYear();
 
   const handleSubmit = async (event: React.FormEvent) => {
+    setIsLoading(true);
     event.preventDefault();
     setId(uuidv4());
 
@@ -46,6 +48,7 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
     };
 
     await updateItem(payload);
+    setIsLoading(false);
   };
 
   const updateItem = async (payload: Record<string, unknown>): Promise<void> => {
@@ -60,6 +63,8 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked); // Toggle the checked state
   };
+
+  console.log('isChecked', isChecked);
 
 
   return (
@@ -146,7 +151,7 @@ export default function ConstructionForm({ toggleForm }: { toggleForm: () => voi
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" className="text-sm/6 font-semibold text-white" onClick={() => toggleForm()}>Cancel</button>
-            <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+            <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{isLoading ? 'Saving...' : 'Save'}</button>
           </div>
         </form>
       </div>

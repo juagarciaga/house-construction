@@ -35,3 +35,14 @@ body {
   justify-content: center;
   padding: 0;
 }
+
+.scrollable-table::-webkit-scrollbar {
+  height: 8px;
+}
+.scrollable-table::-webkit-scrollbar-thumb {
+  background: #4f46e5; /* Indigo-500 */
+  border-radius: 4px;
+}
+.scrollable-table::-webkit-scrollbar-track {
+  background: #e0e7ff; /* Indigo-100 */
+}
