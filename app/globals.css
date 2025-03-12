@@ -52,3 +52,31 @@ body {
 .scrollable-table::-webkit-scrollbar-track {
   background: #e0e7ff; /* Indigo-100 */
 }
+
+/* components/PieChart.module.css */
+.pieChart {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.slice {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 200px, 200px, 100px);
+  background-color: var(--color);
+  transform: rotate(calc(var(--start) * 3.6deg));
+}
+
+.slice::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 100px, 200px, 0);
+  background-color: var(--color);
+  transform: rotate(calc(var(--value) * 3.6deg));
+}

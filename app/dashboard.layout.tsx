@@ -57,7 +57,7 @@ const DashboardLayout = ({ children, title = "Dashboard" }: DashboardLayoutProps
                 >
                     <nav>
                         <ul>
-                            <li className="p-2 hover:bg-gray-700">
+                            <li className="p-2 hover:bg-gray-700 hidden">
                                 <Link href="/family" >
                                     Family Expenses
                                 </Link>
@@ -65,6 +65,11 @@ const DashboardLayout = ({ children, title = "Dashboard" }: DashboardLayoutProps
                             <li className="p-2 hover:bg-gray-700">
                                 <Link href="/construction" >
                                     Construction
+                                </Link>
+                            </li>
+                            <li className="p-2 hover:bg-gray-700">
+                                <Link href="/metrics" >
+                                    Metrics
                                 </Link>
                             </li>
                             <li className="p-2 hover:bg-gray-700">Home</li>

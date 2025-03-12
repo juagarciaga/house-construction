@@ -40,7 +40,6 @@ export default function RomaneiosList() {
         'https://d3cntsq33m.execute-api.us-east-1.amazonaws.com/dev/romaneios'
       );
       setRomaneios(response.data.items);
-      console.log('nnnn', response.data.items.length);
       setLoading(false);
     } catch (error) {
       setLoading(false);
