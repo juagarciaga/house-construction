@@ -9,6 +9,8 @@ import {
   formatCurrency,
   formatDate,
 } from '../commons';
+import ConstructionForm from '../forms/construction.form';
+import { eventsTranslate } from '../translate.dic';
 
 export interface RomaneioItem {
   id: string;
@@ -32,6 +34,12 @@ export default function RomaneiosList() {
   const [romaneios, setRomaneios] = useState<RomaneioItem[]>([]);
   const [activeRomaneio, setActiveRomaneio] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [showForm, setShowForm] = useState(false);
+  const [selectedItemEdit, setSelectedItemEdit] = useState<RomaneioItem | undefined>(undefined);
+
+  const toggleFormVisibility = () => {
+    setShowForm(!showForm);
+  };
 
   const listItem = async () => {
     try {
@@ -58,6 +66,11 @@ export default function RomaneiosList() {
     }
   };
 
+  const editExpense = (item: RomaneioItem) => {
+    setSelectedItemEdit(item);
+    toggleFormVisibility();
+  };
+
   const toogleRomaneio = (index: number) => {
     setActiveRomaneio(index);
     setIsOpen(!isOpen);
@@ -67,11 +80,15 @@ export default function RomaneiosList() {
     listItem();
   }, []);
 
-  const scopoTotal = 650000;
+  const scopoTotal = 700000;
   const total = calculateTotalExpenseByAgnosticType(romaneios);
   const progress1 = (total * 100);
-  const progress = progress1 / scopoTotal;
+  const progressByMoney = progress1 / scopoTotal;
 
+  const totalByObra = calculateTotalExpenseByAgnosticType(romaneios.filter((i) => i.provider !== 'Terreno'));
+  const progress2 = (totalByObra * 100);
+  const vlTerreno = romaneios.find((i) => i.provider === 'Terreno')?.value
+  const progressByObra = progress2 / (scopoTotal - Number(vlTerreno));
 
   const romaneiosByWeek = _.groupBy(romaneios, 'week');
 
@@ -79,15 +96,34 @@ export default function RomaneiosList() {
     <>
       {loading && <p>Loading...</p>}
 
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold mb-4">Total Progress: {progress.toFixed(2)}%</h1>
-        <div className="w-full bg-gray-200 rounded-full h-4">
-          <div
-            className="bg-blue-600 h-4 rounded-full"
-            style={{ width: `${progress}%` }}
-          ></div>
+      {showForm && <ConstructionForm toggleForm={toggleFormVisibility} item={selectedItemEdit ?? undefined} />}
+
+      <div className="flex items-center justify-around mb-3 flex-col md:flex-row">
+        <div className='mb-4 md:mb-0'>
+          <h1 className="text-2xl font-bold mb-4">{eventsTranslate['pt']['progressbyConstruction']}: {progressByObra.toFixed(2)}%</h1>
+          <div className="w-full bg-gray-200 rounded-full h-4">
+            <div
+              className="bg-blue-600 h-4 rounded-full"
+              style={{ width: `${progressByObra}%` }}
+            ></div>
+          </div>
+        </div>
+
+        <div>
+          <h1 className="text-2xl font-bold mb-4">{eventsTranslate['pt']['progressbyMoney']}: {progressByMoney.toFixed(2)}%</h1>
+          <div className="w-full bg-gray-200 rounded-full h-4">
+            <div
+              className="bg-blue-600 h-4 rounded-full"
+              style={{ width: `${progressByMoney}%` }}
+            ></div>
+          </div>
         </div>
       </div>
+
+      <p className="mt-3">
+        Valor Base {'(Terreno + Construção)'}:{' '}
+        <span>{formatCurrency(scopoTotal)}</span>
+      </p>
 
       <p className="mt-3">
         Acumulado dos Romaneios:{' '}
@@ -112,10 +148,6 @@ export default function RomaneiosList() {
         <span>{computeTotalExpenseFormated(romaneios)}</span>
       </p>
 
-      <p className="mt-3">
-        Scopo Total:{' '}
-        <span>{formatCurrency(scopoTotal)}</span>
-      </p>
 
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-2"
@@ -162,7 +194,8 @@ export default function RomaneiosList() {
                       <th className="text-center px-1">Vencimento</th>
                       <th className="text-center px-1">Forma de pagamento</th>
                       <th className="text-center px-1">OBS:</th>
-                      <th className="text-center px-1 text-transparent">D</th>
+                      <th className="text-center px-1 text-transparent">{' '}</th>
+                      <th className="text-center px-1 text-transparent">{' '}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
@@ -188,8 +221,23 @@ export default function RomaneiosList() {
                         </td>
                         <td className="text-center px-1">{item.paymentType}</td>
                         <td className="text-center px-1">{item.obs}</td>
+
+
                         <td
-                          className="text-center px-1 flex align-center justify-center cursor-pointer"
+                          className="text-center px-1 cursor-pointer"
+                          onClick={() => editExpense(item)}
+                        >
+                          <Image
+                            aria-hidden
+                            src="/edit.svg"
+                            alt="edit icon"
+                            width={20}
+                            height={20}
+                          />
+                        </td>
+
+                        <td
+                          className="text-center px-1 cursor-pointer"
                           onClick={() => deleteExpense(item.id)}
                         >
                           <Image

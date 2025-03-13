@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ReactNode, useState } from "react";
+import { eventsTranslate } from "./translate.dic";
 
 interface DashboardLayoutProps {
     children: ReactNode;
@@ -64,17 +65,17 @@ const DashboardLayout = ({ children, title = "Dashboard" }: DashboardLayoutProps
                             </li>
                             <li className="p-2 hover:bg-gray-700">
                                 <Link href="/construction" >
-                                    Construction
+                                    {eventsTranslate['pt']['weeks']}
                                 </Link>
                             </li>
                             <li className="p-2 hover:bg-gray-700">
                                 <Link href="/metrics" >
-                                    Metrics
+                                    {eventsTranslate['pt']['metrics']}
                                 </Link>
                             </li>
-                            <li className="p-2 hover:bg-gray-700">Home</li>
+                            {/* <li className="p-2 hover:bg-gray-700">Home</li>
                             <li className="p-2 hover:bg-gray-700">Profile</li>
-                            <li className="p-2 hover:bg-gray-700">Settings</li>
+                            <li className="p-2 hover:bg-gray-700">Settings</li> */}
                             <li className="p-2 hover:bg-gray-700">Logout</li>
                         </ul>
                     </nav>

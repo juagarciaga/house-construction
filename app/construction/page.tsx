@@ -20,7 +20,7 @@ export default function Page() {
       <button onClick={toggleFormVisibility} className="btn mt-4 largeAddBtn" >
         {showForm ? '-' : '+'}
       </button>
-      {showForm && <ConstructionForm toggleForm={toggleFormVisibility} />}
+      {showForm && <ConstructionForm toggleForm={toggleFormVisibility} item={undefined} />}
     </DashboardLayout>
   );
 }
