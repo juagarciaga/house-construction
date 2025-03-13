@@ -67,7 +67,7 @@ export default function RomaneiosList() {
     listItem();
   }, []);
 
-  const scopoTotal = 700000;
+  const scopoTotal = 650000;
   const total = calculateTotalExpenseByAgnosticType(romaneios);
   const progress1 = (total * 100);
   const progress = progress1 / scopoTotal;

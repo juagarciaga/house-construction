@@ -3,7 +3,7 @@
 import axios from "axios";
 import _ from "lodash";
 import { useEffect, useState } from "react";
-import PieChart from "../components/pirchart";
+import { calculateTotalExpenseByAgnosticType } from "../commons";
 import DashboardLayout from "../dashboard.layout";
 import { RomaneioItem } from "../lists/romaneios.list";
 
@@ -59,15 +59,22 @@ export default function Page() {
             label: Object.keys(byFilter)[index],
         };
     })
-    console.log('piedata', piedata);
+
+    const totalObra = calculateTotalExpenseByAgnosticType(
+        romaneios.filter((i) => i.isInRomaneio)
+    )
+
+    const calcPercentage = (value: number): number => {
+        return Number(((value / totalObra) * 100).toFixed(2));
+    }
 
     return (
         <DashboardLayout>
             <>
                 {loading && <p>Loading...</p>}
                 <h1>Metricss</h1>
-                <PieChart data={piedata} />
-                <div className="sm:col-span-3">
+                {/* <PieChart data={piedata} /> */}
+                <div className="sm:col-span-3 mb-5">
                     <label htmlFor="who-paid" className="block text-sm/6 font-medium text-white">Quien Pagó?</label>
                     <div className="mt-2 grid grid-cols-1">
                         <select id="who-paid" name="who-paid" onChange={(e) => setFilterBy(e.target.value)} autoComplete="who-paid" className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" defaultValue={filterBy}>
@@ -82,12 +89,25 @@ export default function Page() {
                         </svg>
                     </div>
                 </div>
-
-                {piedata.map((item) => (
-                    <div key={item.label} style={{ backgroundColor: `${item.color}`, color: `white` }}>
-                        <h2 >{item.label}</h2>
-                    </div>
-                ))}
+                {/* <p>Total Obra: {Number(totalObra)}</p> */}
+                <table className="min-w-full table-auto border-collapse">
+                    <thead className="bg-indigo-50 border-b border-indigo-800 text-black">
+                        <tr>
+                            <th className="text-center px-1">Fornecedor</th>
+                            {/* <th className="text-center px-1">Valor</th> */}
+                            <th className="text-center px-1">%</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                        {piedata.map((item) => (
+                            <tr key={item.label}>
+                                <td className="text-center px-1">{item.label}</td>
+                                {/* <td className="text-center px-1">{item.value}</td> */}
+                                <td className="text-center px-1">{calcPercentage(item.value)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
             </>
         </DashboardLayout>
