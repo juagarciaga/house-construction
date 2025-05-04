@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/aws-lambda": "^8.10.146",
     "@types/aws-sdk": "^0.0.42",
+    "amazon-cognito-identity-js": "^6.3.15",
     "aws": "^0.0.3-2",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.7.9",
