@@ -217,7 +217,7 @@ export default function RomaneiosList() {
                           {formatCurrency(Number(item.value))}
                         </td>
                         <td className="text-center px-1">
-                          {formatDate(item.expiredDate)}
+                          {formatDate(item?.expiredDate)}
                         </td>
                         <td className="text-center px-1">{item.paymentType}</td>
                         <td className="text-center px-1">{item.obs}</td>
@@ -226,6 +226,7 @@ export default function RomaneiosList() {
                         <td
                           className="text-center px-1 cursor-pointer"
                           onClick={() => editExpense(item)}
+                          style={{ width: '120px', height: '60px' }}
                         >
                           <Image
                             aria-hidden
@@ -233,19 +234,22 @@ export default function RomaneiosList() {
                             alt="edit icon"
                             width={20}
                             height={20}
+                            style={{ width: '120px', height: '60px' }}
                           />
                         </td>
 
                         <td
                           className="text-center px-1 cursor-pointer"
                           onClick={() => deleteExpense(item.id)}
+                          style={{ width: '120px', height: '60px' }}
                         >
                           <Image
                             aria-hidden
                             src="/delete.svg"
                             alt="delete icon"
-                            width={20}
-                            height={20}
+                            width={120}
+                            height={60}
+                            style={{ width: '120px', height: '60px' }}
                           />
                         </td>
                       </tr>

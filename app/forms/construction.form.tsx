@@ -4,6 +4,104 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { RomaneioItem } from "../lists/romaneios.list";
 
+export const romeT = [
+  {
+    "id": uuidv4(),
+    "week": 35,
+    "provider": "Andaimes Mota",
+    "ccoMaterial": "MA - Material",
+    "clasification": "SERVIÇOS GERAIS - 1.2. LOCAÇÃO DE ANDAIMES",
+    "note": "4570",
+    "createdDate": "2025-05-27T00:00:00.001Z",
+    "expiredDate": "2025-06-27T00:00:00.001Z",
+    "value": "240",
+    "paymentType": "Boleto",
+    "obs": "",
+    "isInRomaneio": true,
+    "month": 6,
+    "year": 2025
+  },
+  {
+    "id": uuidv4(),
+    "week": 36,
+    "provider": "Andaimes Mota",
+    "ccoMaterial": "CA - Concreto",
+    "clasification": "SERVIÇOS GERAIS - 1.2. LOCAÇÃO DE ANDAIMES E MATERIAIS DE OBRA",
+    "note": "5926",
+    "value": "150",
+    "createdDate": "2025-05-09T00:00:00.001Z",
+    "expiredDate": "2025-06-15T00:00:00.001Z",
+    "paymentType": "Boleto",
+    "obs": "",
+    "isInRomaneio": true,
+    "month": 6,
+    "year": 2025
+  },
+  {
+    "id": uuidv4(),
+    "week": 36,
+    "provider": "Cesar Gomes de Carvalho",
+    "ccoMaterial": "MO - Mão de obra",
+    "clasification": "REVESTIMENTOS - 7.2. REBOCO PARCIAL - INTERNO/EXTERNO",
+    "note": "X",
+    "value": "3600",
+    "createdDate": "2025-04-21T00:00:00.001Z",
+    "expiredDate": "2025-05-21T00:00:00.001Z",
+    "paymentType": "Débito",
+    "obs": "",
+    "isInRomaneio": true,
+    "month": 6,
+    "year": 2025
+  },
+  {
+    "id": uuidv4(),
+    "week": 37,
+    "provider": "SG Esquadrias",
+    "ccoMaterial": "MA - Material",
+    "clasification": "ESQUADRIAS - 3.1. JANELAS E PORTAS EXTERNAS EM ALUMÍNIO",
+    "note": "54.192",
+    "value": "4810",
+    "createdDate": "2025-05-06T00:00:00.001Z",
+    "expiredDate": "2025-06-06T00:00:00.001Z",
+    "paymentType": "Boleto",
+    "obs": "",
+    "isInRomaneio": true,
+    "month": 6,
+    "year": 2025
+  },
+  {
+    "id": uuidv4(),
+    "week": 37,
+    "provider": "SG Esquadrias",
+    "ccoMaterial": "MA - Material",
+    "clasification": "ESQUADRIAS - 3.1. JANELAS E PORTAS EXTERNAS EM ALUMÍNIO",
+    "note": "54.192",
+    "value": "1640",
+    "createdDate": "2025-05-06T00:00:00.001Z",
+    "expiredDate": "2025-06-06T00:00:00.001Z",
+    "paymentType": "Boleto",
+    "obs": "",
+    "isInRomaneio": true,
+    "month": 6,
+    "year": 2025
+  },
+  {
+    "id": uuidv4(),
+    "week": 37,
+    "provider": "Tunas Materiais",
+    "ccoMaterial": "MA - Material",
+    "clasification": "INSTALAÇÕES HIDROSSANITÁRIAS - 16.1. TUBULAÇÃO DE ÁGUA FRIA",
+    "note": "X",
+    "value": "7138",
+    "createdDate": "2025-05-21T00:00:00.001Z",
+    "expiredDate": "2025-06-21T00:00:00.001Z",
+    "paymentType": "Boleto",
+    "obs": "",
+    "isInRomaneio": true,
+    "month": 6,
+    "year": 2025
+  }
+]
 
 export default function ConstructionForm({ toggleForm, item }: { toggleForm: () => void, item: RomaneioItem | undefined }) {
   const today = new Date();
@@ -53,6 +151,12 @@ export default function ConstructionForm({ toggleForm, item }: { toggleForm: () 
   const updateItem = async (payload: Record<string, unknown>): Promise<void> => {
     try {
       await axios.put('https://d3cntsq33m.execute-api.us-east-1.amazonaws.com/dev/romaneios', payload);
+
+      // romeT.map(async (item) => {
+
+      //   await axios.put('https://d3cntsq33m.execute-api.us-east-1.amazonaws.com/dev/romaneios', item);
+
+      // });
       toggleForm();
       console.log('Item updated:', payload);
     } catch (error) {
