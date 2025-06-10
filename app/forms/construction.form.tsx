@@ -7,14 +7,14 @@ import { RomaneioItem } from "../lists/romaneios.list";
 export const romeT = [
   {
     "id": uuidv4(),
-    "week": 35,
-    "provider": "Andaimes Mota",
+    "week": 41,
+    "provider": "Baoba Madeiras",
     "ccoMaterial": "MA - Material",
-    "clasification": "SERVIÇOS GERAIS - 1.2. LOCAÇÃO DE ANDAIMES",
-    "note": "4570",
-    "createdDate": "2025-05-27T00:00:00.001Z",
-    "expiredDate": "2025-06-27T00:00:00.001Z",
-    "value": "240",
+    "clasification": "PISOS - 14.4. CERÂMICOS EXTERNOS",
+    "note": "2.633",
+    "value": "170.00",
+    "createdDate": "2025-05-12T00:00:00.001Z",
+    "expiredDate": "2025-06-01T00:00:00.001Z",
     "paymentType": "Boleto",
     "obs": "",
     "isInRomaneio": true,
@@ -23,45 +23,13 @@ export const romeT = [
   },
   {
     "id": uuidv4(),
-    "week": 36,
+    "week": 41,
     "provider": "Andaimes Mota",
-    "ccoMaterial": "CA - Concreto",
-    "clasification": "SERVIÇOS GERAIS - 1.2. LOCAÇÃO DE ANDAIMES E MATERIAIS DE OBRA",
-    "note": "5926",
-    "value": "150",
-    "createdDate": "2025-05-09T00:00:00.001Z",
-    "expiredDate": "2025-06-15T00:00:00.001Z",
-    "paymentType": "Boleto",
-    "obs": "",
-    "isInRomaneio": true,
-    "month": 6,
-    "year": 2025
-  },
-  {
-    "id": uuidv4(),
-    "week": 36,
-    "provider": "Cesar Gomes de Carvalho",
-    "ccoMaterial": "MO - Mão de obra",
-    "clasification": "REVESTIMENTOS - 7.2. REBOCO PARCIAL - INTERNO/EXTERNO",
-    "note": "X",
-    "value": "3600",
-    "createdDate": "2025-04-21T00:00:00.001Z",
-    "expiredDate": "2025-05-21T00:00:00.001Z",
-    "paymentType": "Débito",
-    "obs": "",
-    "isInRomaneio": true,
-    "month": 6,
-    "year": 2025
-  },
-  {
-    "id": uuidv4(),
-    "week": 37,
-    "provider": "SG Esquadrias",
     "ccoMaterial": "MA - Material",
-    "clasification": "ESQUADRIAS - 3.1. JANELAS E PORTAS EXTERNAS EM ALUMÍNIO",
-    "note": "54.192",
-    "value": "4810",
-    "createdDate": "2025-05-06T00:00:00.001Z",
+    "clasification": "SERVIÇOS INICIAIS - 1.3. LOCAÇÃO DE ANDAIMES E MATERIAIS DE OBRA",
+    "note": "5.385",
+    "value": "120.00",
+    "createdDate": "2025-05-19T00:00:00.001Z",
     "expiredDate": "2025-06-06T00:00:00.001Z",
     "paymentType": "Boleto",
     "obs": "",
@@ -71,14 +39,47 @@ export const romeT = [
   },
   {
     "id": uuidv4(),
-    "week": 37,
-    "provider": "SG Esquadrias",
+    "week": 41,
+    "provider": "FG Esquadrias",
     "ccoMaterial": "MA - Material",
-    "clasification": "ESQUADRIAS - 3.1. JANELAS E PORTAS EXTERNAS EM ALUMÍNIO",
+    "clasification": "ESQUADRIAS - 3.1. JANELAS E PORTAS EXTERNAS EM ALUMÍNIO E VIDRO",
     "note": "54.192",
-    "value": "1640",
-    "createdDate": "2025-05-06T00:00:00.001Z",
+    "createdDate": "2025-06-05T00:00:00.001Z",
     "expiredDate": "2025-06-06T00:00:00.001Z",
+    "value": "4810.00",
+    "paymentType": "Boleto",
+    "obs": "PARCELA 2/2",
+    "isInRomaneio": true,
+    "month": 6,
+    "year": 2025
+  },
+  {
+    "id": uuidv4(),
+    "week": 41,
+    "provider": "FG Esquadrias",
+    "ccoMaterial": "MA - Material",
+    "clasification": "ESQUADRIAS - 3.1. JANELAS E PORTAS EXTERNAS EM ALUMÍNIO E VIDRO",
+    "note": "54.192",
+    "emissao": "6/05/2025",
+    "value": "1640.00",
+    "createdDate": "2025-06-05T00:00:00.001Z",
+    "expiredDate": "2025-06-06T00:00:00.001Z",
+    "paymentType": "Boleto",
+    "obs": "PARCELA 2/2",
+    "isInRomaneio": true,
+    "month": 6,
+    "year": 2025
+  },
+  {
+    "id": uuidv4(),
+    "week": 41,
+    "provider": "Taurus Materiais",
+    "ccoMaterial": "MA - Material",
+    "clasification": "15. KIT DE FECHAMENTO MENSAL",
+    "note": "190.946",
+    "value": "3818.15",
+    "createdDate": "2025-06-02T00:00:00.001Z",
+    "expiredDate": "2025-06-03T00:00:00.001Z",
     "paymentType": "Boleto",
     "obs": "",
     "isInRomaneio": true,
@@ -87,15 +88,15 @@ export const romeT = [
   },
   {
     "id": uuidv4(),
-    "week": 37,
-    "provider": "Tunas Materiais",
+    "week": 41,
+    "provider": "Joaquim Arquitetura - Reembolso",
     "ccoMaterial": "MA - Material",
-    "clasification": "INSTALAÇÕES HIDROSSANITÁRIAS - 16.1. TUBULAÇÃO DE ÁGUA FRIA",
-    "note": "X",
-    "value": "7138",
-    "createdDate": "2025-05-21T00:00:00.001Z",
-    "expiredDate": "2025-06-21T00:00:00.001Z",
-    "paymentType": "Boleto",
+    "clasification": "11. INSTALAÇÕES ELÉTRICAS - 11.3. TOMADAS E INTERRUPTORES",
+    "emissao": "4/06/2025",
+    "value": "36.80",
+    "createdDate": "2025-06-04T00:00:00.001Z",
+    "expiredDate": "2025-06-04T00:00:00.001Z",
+    "paymentType": "Pix",
     "obs": "",
     "isInRomaneio": true,
     "month": 6,
@@ -151,11 +152,8 @@ export default function ConstructionForm({ toggleForm, item }: { toggleForm: () 
   const updateItem = async (payload: Record<string, unknown>): Promise<void> => {
     try {
       await axios.put('https://d3cntsq33m.execute-api.us-east-1.amazonaws.com/dev/romaneios', payload);
-
       // romeT.map(async (item) => {
-
       //   await axios.put('https://d3cntsq33m.execute-api.us-east-1.amazonaws.com/dev/romaneios', item);
-
       // });
       toggleForm();
       console.log('Item updated:', payload);
@@ -197,7 +195,7 @@ export default function ConstructionForm({ toggleForm, item }: { toggleForm: () 
 
           <div className="mt-4 sm:col-span-3">
             <label htmlFor="week" className="block text-sm/6 font-medium text-white">No. Romaneio</label>
-            <input onChange={(e) => setWeek(Number(e.target.value))} type="number" value={week} id="week" name="week" autoComplete="week" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+            <input onChange={(e) => setWeek(Number(e.target.value))} value={week} id="week" name="week" autoComplete="week" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
           <div className="mt-4 sm:col-span-3">

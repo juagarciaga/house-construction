@@ -80,15 +80,13 @@ export default function RomaneiosList() {
     listItem();
   }, []);
 
-  const scopoTotal = 700000;
+  const scopoTotal = 750000;
   const total = calculateTotalExpenseByAgnosticType(romaneios);
   const progress1 = (total * 100);
   const progressByMoney = progress1 / scopoTotal;
 
-  const totalByObra = calculateTotalExpenseByAgnosticType(romaneios.filter((i) => i.provider !== 'Terreno'));
-  const progress2 = (totalByObra * 100);
-  const vlTerreno = romaneios.find((i) => i.provider === 'Terreno')?.value
-  const progressByObra = progress2 / (scopoTotal - Number(vlTerreno));
+  const totalByObra = calculateTotalExpenseByAgnosticType(romaneios.filter((i) => i.provider !== 'Terreno' && i.provider !== 'Admin'));
+  const progressByObra = totalByObra / total * 100
 
   const romaneiosByWeek = _.groupBy(romaneios, 'week');
 
@@ -122,11 +120,11 @@ export default function RomaneiosList() {
 
       <p className="mt-3">
         Valor Base {'(Terreno + Construção)'}:{' '}
-        <span>{formatCurrency(scopoTotal)}</span>
+        <span className='font-bold'>{formatCurrency(scopoTotal)}</span>
       </p>
 
       <p className="mt-3">
-        Acumulado dos Romaneios:{' '}
+        Gastos Obra (Material + Mão de Obra):{' '}
         <span>
           {computeTotalExpenseFormated(
             romaneios.filter((i) => i.isInRomaneio)
@@ -135,7 +133,7 @@ export default function RomaneiosList() {
       </p>
 
       <p className="mt-3">
-        Fora dos Romaneios:{' '}
+        Fora dos Romaneios (Admin + Terreno):{' '}
         <span>
           {computeTotalExpenseFormated(
             romaneios.filter((i) => !i.isInRomaneio)
@@ -145,7 +143,12 @@ export default function RomaneiosList() {
 
       <p className="mt-3">
         Gastos totais:{' '}
-        <span>{computeTotalExpenseFormated(romaneios)}</span>
+        <span className='font-bold'>{computeTotalExpenseFormated(romaneios)}</span>
+      </p>
+
+      <p className="mt-3">
+        Remanecente:{' '}
+        <span>{formatCurrency(scopoTotal - calculateTotalExpenseByAgnosticType(romaneios))}</span>
       </p>
 
 
@@ -226,8 +229,8 @@ export default function RomaneiosList() {
                         <td
                           className="text-center px-1 cursor-pointer"
                           onClick={() => editExpense(item)}
-                          style={{ width: '120px', height: '60px' }}
                         >
+                          <span style={{ minWidth: '120px', height: '60px', color: "transparent" }}>E</span>
                           <Image
                             aria-hidden
                             src="/edit.svg"
@@ -241,14 +244,14 @@ export default function RomaneiosList() {
                         <td
                           className="text-center px-1 cursor-pointer"
                           onClick={() => deleteExpense(item.id)}
-                          style={{ width: '120px', height: '60px' }}
                         >
+                          <span style={{ minWidth: '120px', height: '60px', color: "transparent" }}>D</span>
                           <Image
                             aria-hidden
                             src="/delete.svg"
-                            alt="delete icon"
-                            width={120}
-                            height={60}
+                            alt="edit icon"
+                            width={20}
+                            height={20}
                             style={{ width: '120px', height: '60px' }}
                           />
                         </td>
