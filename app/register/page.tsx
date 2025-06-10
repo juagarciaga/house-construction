@@ -1,5 +1,5 @@
 'use client';
-import { CognitoUserPool } from 'amazon-cognito-identity-js';
+import { CognitoUserAttribute, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { useState } from 'react';
 
 const poolData = {
@@ -29,7 +29,7 @@ export default function Registration() {
     userPool.signUp(
       formData.email,
       formData.password,
-      [{ Name: 'email', Value: formData.email } as any],
+      [{ Name: 'email', Value: formData.email } as unknown as CognitoUserAttribute],
       [],
       (err, result) => {
         if (err) {
