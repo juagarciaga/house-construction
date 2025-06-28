@@ -4,105 +4,105 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { RomaneioItem } from "../lists/romaneios.list";
 
-export const romeT = [
-  {
-    "id": uuidv4(),
-    "week": 41,
-    "provider": "Baoba Madeiras",
-    "ccoMaterial": "MA - Material",
-    "clasification": "PISOS - 14.4. CERÂMICOS EXTERNOS",
-    "note": "2.633",
-    "value": "170.00",
-    "createdDate": "2025-05-12T00:00:00.001Z",
-    "expiredDate": "2025-06-01T00:00:00.001Z",
-    "paymentType": "Boleto",
-    "obs": "",
-    "isInRomaneio": true,
-    "month": 6,
-    "year": 2025
-  },
-  {
-    "id": uuidv4(),
-    "week": 41,
-    "provider": "Andaimes Mota",
-    "ccoMaterial": "MA - Material",
-    "clasification": "SERVIÇOS INICIAIS - 1.3. LOCAÇÃO DE ANDAIMES E MATERIAIS DE OBRA",
-    "note": "5.385",
-    "value": "120.00",
-    "createdDate": "2025-05-19T00:00:00.001Z",
-    "expiredDate": "2025-06-06T00:00:00.001Z",
-    "paymentType": "Boleto",
-    "obs": "",
-    "isInRomaneio": true,
-    "month": 6,
-    "year": 2025
-  },
-  {
-    "id": uuidv4(),
-    "week": 41,
-    "provider": "FG Esquadrias",
-    "ccoMaterial": "MA - Material",
-    "clasification": "ESQUADRIAS - 3.1. JANELAS E PORTAS EXTERNAS EM ALUMÍNIO E VIDRO",
-    "note": "54.192",
-    "createdDate": "2025-06-05T00:00:00.001Z",
-    "expiredDate": "2025-06-06T00:00:00.001Z",
-    "value": "4810.00",
-    "paymentType": "Boleto",
-    "obs": "PARCELA 2/2",
-    "isInRomaneio": true,
-    "month": 6,
-    "year": 2025
-  },
-  {
-    "id": uuidv4(),
-    "week": 41,
-    "provider": "FG Esquadrias",
-    "ccoMaterial": "MA - Material",
-    "clasification": "ESQUADRIAS - 3.1. JANELAS E PORTAS EXTERNAS EM ALUMÍNIO E VIDRO",
-    "note": "54.192",
-    "emissao": "6/05/2025",
-    "value": "1640.00",
-    "createdDate": "2025-06-05T00:00:00.001Z",
-    "expiredDate": "2025-06-06T00:00:00.001Z",
-    "paymentType": "Boleto",
-    "obs": "PARCELA 2/2",
-    "isInRomaneio": true,
-    "month": 6,
-    "year": 2025
-  },
-  {
-    "id": uuidv4(),
-    "week": 41,
-    "provider": "Taurus Materiais",
-    "ccoMaterial": "MA - Material",
-    "clasification": "15. KIT DE FECHAMENTO MENSAL",
-    "note": "190.946",
-    "value": "3818.15",
-    "createdDate": "2025-06-02T00:00:00.001Z",
-    "expiredDate": "2025-06-03T00:00:00.001Z",
-    "paymentType": "Boleto",
-    "obs": "",
-    "isInRomaneio": true,
-    "month": 6,
-    "year": 2025
-  },
-  {
-    "id": uuidv4(),
-    "week": 41,
-    "provider": "Joaquim Arquitetura - Reembolso",
-    "ccoMaterial": "MA - Material",
-    "clasification": "11. INSTALAÇÕES ELÉTRICAS - 11.3. TOMADAS E INTERRUPTORES",
-    "emissao": "4/06/2025",
-    "value": "36.80",
-    "createdDate": "2025-06-04T00:00:00.001Z",
-    "expiredDate": "2025-06-04T00:00:00.001Z",
-    "paymentType": "Pix",
-    "obs": "",
-    "isInRomaneio": true,
-    "month": 6,
-    "year": 2025
-  }
-]
+// export const romeT = [
+//   {
+//     "id": uuidv4(),
+//     "week": 44,
+//     "provider": "JLB Representações",
+//     "ccoMaterial": "MA - Material",
+//     "clasification": "6. COBERTURAS - 6.8. ESTRUTURA METÁLICA / GALVANIZADO PARA TELHADO",
+//     "note": "X",
+//     "createdDate": "27/05/2025",
+//     "value": "7497.90",
+//     "expiredDate": "Pix",
+//     "paymentType": "Pix",
+//     "obs": "PAGO",
+//     "isInRomaneio": true,
+//     "month": 6,
+//     "year": 2025
+//   },
+//   {
+//     "id": uuidv4(),
+//     "week": 44,
+//     "provider": "Gilson Gomes de Carvalho",
+//     "ccoMaterial": "MO - Mão de obra",
+//     "clasification": "11. INSTALAÇÕES ELÉTRICAS - 11.1. TUBULAÇÕES E CAIXAS DE PASSAGEM",
+//     "note": "X",
+//     "createdDate": "25/06/2025",
+//     "value": "6000.00",
+//     "expiredDate": "Dinheiro",
+//     "paymentType": "Dinheiro",
+//     "obs": "PAGO",
+//     "isInRomaneio": true,
+//     "month": 6,
+//     "year": 2025
+//   },
+//   {
+//     "id": uuidv4(),
+//     "week": 44,
+//     "provider": "Armazem Madeiras",
+//     "ccoMaterial": "MA - Material",
+//     "clasification": "6. COBERTURAS - 6.8. ESTRUTURA METÁLICA / GALVANIZADO PARA TELHADO",
+//     "note": "16.621",
+//     "createdDate": "5/05/2025",
+//     "value": "3016.00",
+//     "expiredDate": "30/06/2025",
+//     "paymentType": "Boleto",
+//     "obs": "Parcela 3/3",
+//     "isInRomaneio": true,
+//     "month": 6,
+//     "year": 2025
+//   },
+//   {
+//     "id": uuidv4(),
+//     "week": 44,
+//     "provider": "Andaimes Mota",
+//     "ccoMaterial": "CM - Contrato",
+//     "clasification": "1. SERVIÇOS INICIAIS - 1.3. LOCAÇÃO DE ANDAIMES E MATERIAIS DE OBRA",
+//     "note": "5.514",
+//     "createdDate": "5/06/2025",
+//     "value": "108.00",
+//     "expiredDate": "04/07/2025",
+//     "paymentType": "Boleto",
+//     "obs": "",
+//     "isInRomaneio": true,
+//     "month": 6,
+//     "year": 2025
+//   },
+//   {
+//     "id": uuidv4(),
+//     "week": 44,
+//     "provider": "Rafael Augusto Cogo",
+//     "ccoMaterial": "MO - Mão de obra",
+//     "clasification": "13. SERVIÇOS GERAIS - 1.1. INSTALAÇÃO DE AR CONDICIONADO",
+//     "note": "X",
+//     "createdDate": "25/06/2025",
+//     "value": "850.00",
+//     "expiredDate": "27/06/2025",
+//     "paymentType": "Pix",
+//     "obs": "CHAVE PIX: CNPJ 52228154000139",
+//     "isInRomaneio": true,
+//     "month": 6,
+//     "year": 2025
+//   },
+//   {
+//     "id": uuidv4(),
+//     "week": 44,
+//     "provider": "Pinhal Madeiras",
+//     "ccoMaterial": "MO - Mão de obra",
+//     "clasification": "6. COBERTURAS - 6.2. TELHAS FIBROCIMENTO 6MM",
+//     "note": "X",
+//     "createdDate": "24/06/2025",
+//     "value": "1820.00",
+//     "expiredDate": "27/06/2025",
+//     "paymentType": "Pix",
+//     "obs": "CHAVE PIX: 16997878362 Enzo da Cunha Junqueira",
+//     "isInRomaneio": true,
+//     "month": 6,
+//     "year": 2025
+//   }
+// ]
+
 
 export default function ConstructionForm({ toggleForm, item }: { toggleForm: () => void, item: RomaneioItem | undefined }) {
   const today = new Date();
@@ -229,7 +229,7 @@ export default function ConstructionForm({ toggleForm, item }: { toggleForm: () 
           </div>
 
           <div className="mt-4 sm:col-span-3">
-            <label htmlFor="value" className="block text-sm/6 font-medium text-white">Valor</label>
+            <label htmlFor="value" className="block text-sm/6 font-medium text-white">value</label>
             <input onChange={(e) => setValue(e.target.value)} value={value} type="text" name="value" id="value" autoComplete="value" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
           </div>
 
