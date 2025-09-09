@@ -81,8 +81,8 @@ export default function RomaneiosList() {
 
       {showForm && <ConstructionForm toggleForm={toggleFormVisibility} item={selectedItemEdit ?? undefined} />}
 
-      {/* Progress Section */}
       <div className="max-w-7xl mx-auto mb-8">
+        {/* Progress Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Construction Progress */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-white/20">
@@ -181,24 +181,6 @@ export default function RomaneiosList() {
               </p>
             </div>
           </div>
-        </div>
-
-        {/* Action Button */}
-        <div className="flex justify-center mb-8">
-          <button
-            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 group"
-            onClick={refreshRomaneios}
-          >
-            <Image
-              aria-hidden
-              src="/refresh.svg"
-              alt="refresh icon"
-              width={20}
-              height={20}
-              className="group-hover:rotate-180 transition-transform duration-500"
-            />
-            <span>Actualizar</span>
-          </button>
         </div>
 
         {/* Romaneios by Week */}

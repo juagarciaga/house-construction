@@ -50,7 +50,7 @@ const DashboardLayout = ({ children, title = "Dashboard" }: DashboardLayoutProps
             </header>
 
             {/* Main Content Area */}
-            <div>
+            <div className="lg:flex">
                 {/* Side Navigation Menu */}
                 <aside
                     className={`bg-gray-800 text-white w-64 space-y-2 p-4 transform transition-transform duration-200 ease-in-out ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
@@ -82,7 +82,7 @@ const DashboardLayout = ({ children, title = "Dashboard" }: DashboardLayoutProps
                 </aside>
 
                 {/* Page Content */}
-                <main >{children}</main>
+                <main className="lg:w-full">{children}</main>
             </div>
 
             {/* Footer */}
