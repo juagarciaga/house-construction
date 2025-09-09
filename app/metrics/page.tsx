@@ -1,43 +1,20 @@
 'use client'
 
-import axios from "axios";
 import _ from "lodash";
 import { useEffect, useState } from "react";
 import { calculateTotalExpenseByAgnosticType } from "../commons";
+import { useRomaneios } from "../context/RomaneiosContext";
 import DashboardLayout from "../dashboard.layout";
 import { RomaneioItem } from "../lists/romaneios.list";
 import { eventsTranslate } from "../translate.dic";
 
 export default function Page() {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [romaneios, setRomaneios] = useState<RomaneioItem[]>([]);
     const [filterBy, setFilterBy] = useState<string>(eventsTranslate['pt']['selectFilter']);
     const [filters, setfilters] = useState<string[]>([]);
 
-    const listItem = async () => {
-        try {
-            setLoading(true);
-            const response = await axios.get(
-                'https://d3cntsq33m.execute-api.us-east-1.amazonaws.com/dev/romaneios'
-            );
-            setRomaneios(response.data.items);
-            setLoading(false);
-        } catch (error) {
-            setLoading(false);
-            console.error('Error getting items:', error);
-        }
-    };
-
-    useEffect(() => {
-        listItem();
-    }, []);
-
+    const { romaneios, loading } = useRomaneios();
 
     const byFilter = _.groupBy(romaneios.filter((i) => i.provider !== `Terreno`), filterBy);
-
-    useEffect(() => {
-        listItem();
-    }, []);
 
     useEffect(() => {
         setfilters(Object.keys(romaneios?.[0] ?? []));

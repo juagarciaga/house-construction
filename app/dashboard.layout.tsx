@@ -82,7 +82,7 @@ const DashboardLayout = ({ children, title = "Dashboard" }: DashboardLayoutProps
                 </aside>
 
                 {/* Page Content */}
-                <main className="flex-1 p-4">{children}</main>
+                <main >{children}</main>
             </div>
 
             {/* Footer */}

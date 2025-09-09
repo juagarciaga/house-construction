@@ -1,114 +1,18 @@
 'use client'
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { useRomaneios } from "../context/RomaneiosContext";
 import { RomaneioItem } from "../lists/romaneios.list";
 
-// export const romeT = [
-//   {
-//     "id": uuidv4(),
-//     "week": 44,
-//     "provider": "JLB Representações",
-//     "ccoMaterial": "MA - Material",
-//     "clasification": "6. COBERTURAS - 6.8. ESTRUTURA METÁLICA / GALVANIZADO PARA TELHADO",
-//     "note": "X",
-//     "createdDate": "27/05/2025",
-//     "value": "7497.90",
-//     "expiredDate": "Pix",
-//     "paymentType": "Pix",
-//     "obs": "PAGO",
-//     "isInRomaneio": true,
-//     "month": 6,
-//     "year": 2025
-//   },
-//   {
-//     "id": uuidv4(),
-//     "week": 44,
-//     "provider": "Gilson Gomes de Carvalho",
-//     "ccoMaterial": "MO - Mão de obra",
-//     "clasification": "11. INSTALAÇÕES ELÉTRICAS - 11.1. TUBULAÇÕES E CAIXAS DE PASSAGEM",
-//     "note": "X",
-//     "createdDate": "25/06/2025",
-//     "value": "6000.00",
-//     "expiredDate": "Dinheiro",
-//     "paymentType": "Dinheiro",
-//     "obs": "PAGO",
-//     "isInRomaneio": true,
-//     "month": 6,
-//     "year": 2025
-//   },
-//   {
-//     "id": uuidv4(),
-//     "week": 44,
-//     "provider": "Armazem Madeiras",
-//     "ccoMaterial": "MA - Material",
-//     "clasification": "6. COBERTURAS - 6.8. ESTRUTURA METÁLICA / GALVANIZADO PARA TELHADO",
-//     "note": "16.621",
-//     "createdDate": "5/05/2025",
-//     "value": "3016.00",
-//     "expiredDate": "30/06/2025",
-//     "paymentType": "Boleto",
-//     "obs": "Parcela 3/3",
-//     "isInRomaneio": true,
-//     "month": 6,
-//     "year": 2025
-//   },
-//   {
-//     "id": uuidv4(),
-//     "week": 44,
-//     "provider": "Andaimes Mota",
-//     "ccoMaterial": "CM - Contrato",
-//     "clasification": "1. SERVIÇOS INICIAIS - 1.3. LOCAÇÃO DE ANDAIMES E MATERIAIS DE OBRA",
-//     "note": "5.514",
-//     "createdDate": "5/06/2025",
-//     "value": "108.00",
-//     "expiredDate": "04/07/2025",
-//     "paymentType": "Boleto",
-//     "obs": "",
-//     "isInRomaneio": true,
-//     "month": 6,
-//     "year": 2025
-//   },
-//   {
-//     "id": uuidv4(),
-//     "week": 44,
-//     "provider": "Rafael Augusto Cogo",
-//     "ccoMaterial": "MO - Mão de obra",
-//     "clasification": "13. SERVIÇOS GERAIS - 1.1. INSTALAÇÃO DE AR CONDICIONADO",
-//     "note": "X",
-//     "createdDate": "25/06/2025",
-//     "value": "850.00",
-//     "expiredDate": "27/06/2025",
-//     "paymentType": "Pix",
-//     "obs": "CHAVE PIX: CNPJ 52228154000139",
-//     "isInRomaneio": true,
-//     "month": 6,
-//     "year": 2025
-//   },
-//   {
-//     "id": uuidv4(),
-//     "week": 44,
-//     "provider": "Pinhal Madeiras",
-//     "ccoMaterial": "MO - Mão de obra",
-//     "clasification": "6. COBERTURAS - 6.2. TELHAS FIBROCIMENTO 6MM",
-//     "note": "X",
-//     "createdDate": "24/06/2025",
-//     "value": "1820.00",
-//     "expiredDate": "27/06/2025",
-//     "paymentType": "Pix",
-//     "obs": "CHAVE PIX: 16997878362 Enzo da Cunha Junqueira",
-//     "isInRomaneio": true,
-//     "month": 6,
-//     "year": 2025
-//   }
-// ]
-
-
 export default function ConstructionForm({ toggleForm, item }: { toggleForm: () => void, item: RomaneioItem | undefined }) {
+
+  const { refreshRomaneios, updateRomaneio, romaneios } = useRomaneios();
+
   const today = new Date();
   const [id, setId] = useState(uuidv4());
   const [week, setWeek] = useState(0);
   const [provider, setProvider] = useState('provider');
+  const [providerBySelect, setProviderBySelect] = useState('providerBySelect');
   const [ccoMaterial, setccoMaterial] = useState('material');
   const [clasification, setClasification] = useState('clasification');
   const [note, setNote] = useState('nota fiscail');
@@ -128,20 +32,20 @@ export default function ConstructionForm({ toggleForm, item }: { toggleForm: () 
     event.preventDefault();
     setId(uuidv4());
 
-    const payload = {
+    const payload: RomaneioItem = {
       id,
-      week,
-      provider,
+      provider: providerBySelect === 'custom' ? provider : providerBySelect,
+      createdDate: createdDate.toISOString(),
+      week: String(week),
+      value,
+      note,
+      expiredDate: expiredDate.toISOString(),
       ccoMaterial,
       clasification,
-      note,
-      createdDate,
-      expiredDate,
-      value,
-      paymentType,
+      month: String(month),
+      year: String(year),
       obs,
-      month,
-      year,
+      paymentType,
       isInRomaneio: isChecked,
     };
 
@@ -149,14 +53,11 @@ export default function ConstructionForm({ toggleForm, item }: { toggleForm: () 
     setIsLoading(false);
   };
 
-  const updateItem = async (payload: Record<string, unknown>): Promise<void> => {
+  const updateItem = async (payload: RomaneioItem): Promise<void> => {
     try {
-      await axios.put('https://d3cntsq33m.execute-api.us-east-1.amazonaws.com/dev/romaneios', payload);
-      // romeT.map(async (item) => {
-      //   await axios.put('https://d3cntsq33m.execute-api.us-east-1.amazonaws.com/dev/romaneios', item);
-      // });
+      await updateRomaneio(payload);
+      refreshRomaneios();
       toggleForm();
-      console.log('Item updated:', payload);
     } catch (error) {
       console.error('Error updating item:', error);
     }
@@ -170,7 +71,7 @@ export default function ConstructionForm({ toggleForm, item }: { toggleForm: () 
     if (item?.id) {
       setId(item.id);
       setWeek(Number(item.week));
-      setProvider(item.provider);
+      setProvider(providerBySelect === 'custom' ? item.provider : providerBySelect);
       setccoMaterial(item.ccoMaterial);
       setClasification(item.clasification);
       setNote(item.note);
@@ -182,6 +83,11 @@ export default function ConstructionForm({ toggleForm, item }: { toggleForm: () 
       setIsChecked(item.isInRomaneio);
     }
   }, [item]);
+
+  const uniqueProviders = [...new Set(romaneios.map(r => r.provider))].filter(Boolean);
+  const uniqueMaterials = [...new Set(romaneios.map(r => r.ccoMaterial))].filter(Boolean);
+  const uniqueClasifications = [...new Set(romaneios.map(r => r.clasification))].filter(Boolean);
+
 
   return (
     <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -200,17 +106,80 @@ export default function ConstructionForm({ toggleForm, item }: { toggleForm: () 
 
           <div className="mt-4 sm:col-span-3">
             <label htmlFor="provider" className="block text-sm/6 font-medium text-white">Fornecedor</label>
-            <input onChange={(e) => setProvider(e.target.value)} value={provider} type="text" id="provider" name="provider" autoComplete="provider" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+            <div className="grid grid-cols-1">
+              <select
+                onChange={(e) => setProviderBySelect(e.target.value)}
+                value={providerBySelect}
+                id="provider"
+                name="provider"
+                className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+              >
+                <option value="provider">Selecione um fornecedor</option>
+                {uniqueProviders.map((providerOption, index) => (
+                  <option key={index} value={providerOption}>
+                    {providerOption}
+                  </option>
+                ))}
+                <option value="custom">Adicionar novo fornecedor</option>
+              </select>
+              <svg className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fillRule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+              </svg>
+            </div>
+            {providerBySelect === 'custom' && (
+              <input
+                onChange={(e) => setProvider(e.target.value)}
+                type="text"
+                placeholder="Digite o nome do novo fornecedor"
+                className="mt-2 block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+              />
+            )}
           </div>
 
           <div className="mt-4 sm:col-span-3">
             <label htmlFor="material" className="block text-sm/6 font-medium text-white">Material</label>
-            <input onChange={(e) => setccoMaterial(e.target.value)} type="text" value={ccoMaterial} id="material" name="material" autoComplete="material" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+            <div className="grid grid-cols-1">
+              <select
+                onChange={(e) => setccoMaterial(e.target.value)}
+                value={ccoMaterial}
+                id="material"
+                name="material"
+                className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+              >
+                <option value="material">Selecione um material</option>
+                {uniqueMaterials.map((materialOption, index) => (
+                  <option key={index} value={materialOption}>
+                    {materialOption}
+                  </option>
+                ))}
+              </select>
+              <svg className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fillRule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+              </svg>
+            </div>
           </div>
 
           <div className="mt-4 sm:col-span-3">
             <label htmlFor="clasification" className="block text-sm/6 font-medium text-white">Clasificação de Material ou Serviço</label>
-            <input onChange={(e) => setClasification(e.target.value)} value={clasification} type="text" id="clasification" name="clasification" className="block w-full rounded-md bg-white px-3 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+            <div className="grid grid-cols-1">
+              <select
+                onChange={(e) => setClasification(e.target.value)}
+                value={clasification}
+                id="clasification"
+                name="clasification"
+                className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-black outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+              >
+                <option value="material">Selecione um material</option>
+                {uniqueClasifications.map((clasificationOption, index) => (
+                  <option key={index} value={clasificationOption}>
+                    {clasificationOption}
+                  </option>
+                ))}
+              </select>
+              <svg className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fillRule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+              </svg>
+            </div>
           </div>
 
           <div className="mt-4 sm:col-span-3">
