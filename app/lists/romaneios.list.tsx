@@ -35,7 +35,7 @@ export default function RomaneiosList() {
   const [showForm, setShowForm] = useState(false);
   const [selectedItemEdit, setSelectedItemEdit] = useState<RomaneioItem | undefined>(undefined);
 
-  const { romaneios, loading, refreshRomaneios, deleteRomaneio } = useRomaneios();
+  const { romaneios, loading, deleteRomaneio } = useRomaneios();
 
   const toggleFormVisibility = () => {
     setShowForm(!showForm);
